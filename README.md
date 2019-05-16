@@ -3,7 +3,7 @@
 This is a simple ASP.NET Core app for hosting any web application on a IIS server.
 It was originally created to host node applications on IIS because there were some issues with issnode and Windows Authentication.
 
-![IIS Bridge](/doc/iisbridge.png)
+![IIS Bridge](doc/iisbridge.png)
 
 * **ExecutableHandler**: This component ensures that the web application executable is always up and running. It starts the executable with the configuration provided within `Web.config`.
 
