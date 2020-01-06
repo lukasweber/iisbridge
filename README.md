@@ -1,7 +1,7 @@
 # IISBridge
 
 This is a simple ASP.NET Core app for hosting any web application on a IIS server.
-It was originally created to host node applications on IIS with Windows Auth because there were some issues with issnode and Windows Authentication.
+It was originally created to host node.js applications on IIS with Windows Auth because there were some issues with [iisnode](https://github.com/Azure/iisnode) and Windows Authentication.
 
 ![IIS Bridge](doc/iisbridge.png)
 
