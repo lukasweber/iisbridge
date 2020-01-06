@@ -1,13 +1,13 @@
 # IISBridge
 
 This is a simple ASP.NET Core app for hosting any web application on a IIS server.
-It was originally created to host node applications on IIS because there were some issues with issnode and Windows Authentication.
+It was originally created to host node applications on IIS with Windows Auth because there were some issues with issnode and Windows Authentication.
 
 ![IIS Bridge](doc/iisbridge.png)
 
-* **ExecutableHandler**: This component ensures that the web application executable is always up and running. It starts the executable with the configuration provided within `Web.config`.
+* **ExecutableHandler**: This component ensures that the web application executable is always up and running. It starts the executable with configuration provided within `Web.config`.
 
-* **ReverseProxy**: Proxies requests from IIS to the port which the web app executable is running on and returns the response. It additionally adds the HTTP-Header `x-auth-user` with the current user which was authenticated with Windows Auth by the IIS server.
+* **ReverseProxy**: Proxies requests from IIS to the port which the web app executable is running on and returns the response. It additionally adds the HTTP-Header `x-auth-user` with the current user who was authenticated with Windows Auth by the IIS server.
 
 ## Build
 
@@ -46,11 +46,11 @@ You need `iisbridge.dll`, `iisbridge.runtimeconfig.json` and `web.config` to run
 </configuration>
 ```
 
-It is very important to provide the port `appProcessPort` which the application is running on that the iisbridge's reverse proxy knows where to redirect the requests.
+It is very important to provide the port `appProcessPort` which the application is running on. So the iisbridge's reverse proxy knows where to redirect the requests.
 It is also possible to provide some environment variables or process start arguments `appProcessArgs`.
 
 3. If you want to use Windows Authentication within your application, be sure that `Windows Authentication` is enabled and `Anonymous Authentication` is disabled on your server.
 
 ## Troubleshooting
 
-If something is not working like expected, it is recommended to set `stdoutLogEnabled` to `true` which will also log the stdout of your web application executable. There you should be able to figure out any problems really fast.
+If something is not working like expected, it is recommended to set `stdoutLogEnabled` to `true` which will log the stdout of your web application executable. There you should be able to figure out any problem really fast.

@@ -27,7 +27,6 @@ namespace iisbridge {
 
         public async Task Invoke(HttpContext context)
         {
-            // Console.WriteLine(String.Join(", ",context.Request.Headers.Select(s => $"{s.Key.ToString()}: {s.Value.ToString()}")));
             // Ensure Web-App is started
             if (!exeHandler.Started) 
             {
@@ -89,7 +88,6 @@ namespace iisbridge {
             requestMessage.Method = GetMethod(context.Request.Method);
 
             // Add user authenticated by Windows Auth
-            requestMessage.Headers.Remove("Authorization");
             requestMessage.Headers.Remove("x-auth-user");
             requestMessage.Headers.Add("x-auth-user", context.User.Identity.Name ?? "Unknown");
 

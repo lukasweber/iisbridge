@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Collections.Specialized;
 
 namespace iisbridge 
 {
@@ -44,7 +43,8 @@ namespace iisbridge
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = processFilename;
             startInfo.Arguments = args;
-            foreach (KeyValuePair<string, string> variable in envVariables) {
+            foreach (KeyValuePair<string, string> variable in envVariables) 
+            {
                 startInfo.EnvironmentVariables.Add(variable.Key,variable.Value);
             }
             startInfo.WorkingDirectory = Environment.CurrentDirectory;
@@ -84,15 +84,23 @@ namespace iisbridge
             }
         }
 
-        public void Start() {
+        public void Start() 
+        {
             startedTime = DateTime.Now;
             tokenSource = new CancellationTokenSource();
             this.processObserverTask = Task.Run(() => StartProcess(), tokenSource.Token);
         }
 
-        public void Stop() {
-            process.Kill();
-            tokenSource.Cancel();
+        public void Stop() 
+        {
+            try 
+            {
+                tokenSource.Cancel();
+                process.Kill();
+            } catch (Exception ex) 
+            {
+                Console.WriteLine($"Error on stopping process: {ex.Message}");
+            }
         }
 
         private void KillByPort(int port)
@@ -134,8 +142,6 @@ namespace iisbridge
             var soStream = process.StandardOutput;
 
             var output = soStream.ReadToEnd();
-            if (process.ExitCode != 0)
-                throw new Exception("somethign broke");
 
             var result = new List<PRC>(); 
 
